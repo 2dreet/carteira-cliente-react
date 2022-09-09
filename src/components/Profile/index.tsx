@@ -1,37 +1,69 @@
-import { Box, Flex, Text, Avatar } from "@chakra-ui/react";
+import {Avatar, Box, Flex, Text, Popover, PopoverArrow, PopoverBody, PopoverContent, PopoverTrigger, HStack, Icon, Button} from '@chakra-ui/react';
+import { useAuthenticationContext } from "../../contexts/AuthenticationContext";
+import { MdLogout } from 'react-icons/md';
 
 interface ProfileProps {
     showName: boolean
 }
 
 export function Profile({ showName }: ProfileProps) {
- 
-    return(
-        <Flex
-            align="center"
-            ml="auto">
-            <Flex 
-                align="center">
-                { showName && 
-                    <Box 
-                        mr="4" 
-                        textAlign="right">
+    
+    const { user, logOut } = useAuthenticationContext();
 
-                        <Text>José Augusto</Text>
-                        <Text 
-                            color="gray.300" 
-                            fontSize="small">
-                                jose.pasqualli@gmail.com
-                        </Text>
-                    </Box>
-                }    
+    return (
+        <Popover>
+            <PopoverTrigger>
+                <Flex
+                    as="button"
+                    align="center"
+                    ml="auto">
+                    <Flex 
+                        align="center">
+                        { showName && 
+                            <Box 
+                                mr="4" 
+                                textAlign="right">
 
-                <Avatar 
-                    size="md"
-                    name="José Augusto"
-                    src=""/>
-            </Flex>   
-        </Flex>
+                                <Text>{user?.person.name}</Text>
+                                <Text 
+                                    color="gray.300" 
+                                    fontSize="small">
+                                        {user?.login}
+                                </Text>
+                            </Box>
+                        }    
+                        
+                        <Avatar 
+                            size="md"
+                            name={user?.person.name}
+                            src=""/>
+                    </Flex>  
+                </Flex>
+            </PopoverTrigger>
+            <PopoverContent borderColor="gray.900" >
+                <PopoverArrow />
+                <PopoverBody 
+                    bg="gray.700">
+                        <Button 
+                            onClick={() => logOut(true)}
+                            w="100%"
+                            bg="unset"
+                            _hover={{bg: "gray.700"}}
+                            _active={{bg: "gray.700"}}>
+                            <HStack w="100%">
+                                <Icon 
+                                    as={MdLogout} 
+                                    fontSize="20" />
+                                <Text 
+                                    ml="4" 
+                                    fontWeight="medium">
+                                    Sair
+                                </Text>
+                            </HStack>
+                        </Button>
+                </PopoverBody>
+            </PopoverContent>
+        </Popover>
     );
 }
 

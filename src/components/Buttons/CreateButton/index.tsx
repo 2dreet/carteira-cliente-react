@@ -9,7 +9,6 @@ export function CreateButton({label, ...rest}: props) {
     return(
         <Button 
             cursor="pointer"
-            as="a" 
             size="md" 
             fontSize="md" 
             colorScheme="green" 

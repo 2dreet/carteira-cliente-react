@@ -1,19 +1,19 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Routes, Route,  } from 'react-router';
 import CreateUser from '../pages/CreateUser';
 
 import Dashboard from '../pages/Dashboard';
 import Login from '../pages/Login';
-import User from '../pages/User';
+import Users from '../pages/Users';
 
-const RoutesConfig: React.FC = () => (
-  <BrowserRouter>
+export const RoutesConfig = () => { 
+  return (
     <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/users" element={<User />} />
-        <Route path="/users/create" element={<CreateUser />} />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/users/create" element={<CreateUser />} />
     </Routes>
-  </BrowserRouter>
-);
+  );
+}
 
 export default RoutesConfig;

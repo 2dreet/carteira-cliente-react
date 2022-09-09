@@ -1,25 +1,33 @@
-import { Box, Stack, Text, Link, Icon } from '@chakra-ui/react';
-import { RiDashboardLine, RiContactsLine, RiInputMethodLine, RiGitMergeLine } from 'react-icons/ri';
-import NavSection, { NavSectionProps } from '../NavSection';
-
-const navSectionProps:NavSectionProps [] = [
-    { 
-        label: "GERAL", 
-        links: [ 
-            { lable: "Dashboard", icon: RiDashboardLine },
-            { lable: "Usuários", icon: RiContactsLine }
-        ] 
-    }, 
-    { 
-        label: "AUTOMAÇÃO", 
-        links: [ 
-            { lable: "Formulários", icon: RiInputMethodLine },
-            { lable: "Automação", icon: RiGitMergeLine }
-        ] 
-    }
-];
+import { Box, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, useBreakpointValue } from '@chakra-ui/react';
+import { useSidebarDrawer } from '../../contexts/SidebarDrawerContext';
+import SidebarNav from '../SidebarNav';
 
 export function Sidebar(){
+
+    const { isOpen, onClose } = useSidebarDrawer();
+
+    const sidebarFloat = useBreakpointValue({
+        base: true,
+        lg: false
+    });
+
+    if(sidebarFloat){
+        return(
+            <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
+                <DrawerOverlay>
+                    <DrawerContent bg="gray.800" p="4">
+                        <DrawerCloseButton />
+                        <DrawerHeader color="grey.300">
+                                Navegação
+                        </DrawerHeader>
+                        <DrawerBody>
+                            <SidebarNav />
+                        </DrawerBody>
+                    </DrawerContent>
+                </DrawerOverlay>
+            </Drawer>
+        );
+    }
 
     return(
         <Box 
@@ -27,18 +35,7 @@ export function Sidebar(){
             w="64" 
             mr="8">
             
-            <Stack 
-                spacing="12"
-                align="flex-start">
-
-                {!! navSectionProps && navSectionProps.map(navSection => 
-                    <NavSection 
-                        label={navSection.label} 
-                        links={navSection.links} 
-                        key={navSection.label} />
-                )}
-
-            </Stack>
+            <SidebarNav />
         </Box>
     );
 }

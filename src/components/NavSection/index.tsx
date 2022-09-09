@@ -23,7 +23,9 @@ export function NavSection({ label, links }:NavSectionProps){
                     <NavLink 
                         key={link.lable} 
                         lable={link.lable} 
-                        icon={link.icon} />
+                        icon={link.icon} 
+                        path={link.path}
+                        startWith={link.startWith}/>
                 )}   
             </Stack>
         </Box> 

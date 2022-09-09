@@ -1,14 +1,17 @@
-import {Flex, useBreakpointValue} from '@chakra-ui/react';
+import {Flex, Icon, IconButton, useBreakpointValue} from '@chakra-ui/react';
+import { RiMenuLine } from 'react-icons/ri';
+import { useSidebarDrawer } from '../../contexts/SidebarDrawerContext';
 import Logo from '../Logo';
 import Profile from '../Profile';
-import Search from '../Search';
 
 export function Header () {
+
+    const { onOpen } = useSidebarDrawer();
 
     const isMoble = useBreakpointValue({
         base: true,
         lg: false
-    })
+    });
 
     return (
         <Flex 
@@ -21,13 +24,22 @@ export function Header () {
             px="8"
             align="center"
             >
+
+            {!!isMoble && 
+                <IconButton
+                    aria-label="Open navigation"
+                    icon={<Icon as={RiMenuLine} />}
+                    fontSize="32"
+                    mt="1"
+                    variant="unstyled"
+                    onClick={onOpen}
+                    mr="6" />
+            }
+
             <Logo />
 
-            {/* {!isMoble && 
-                <Search />
-            } */}
-
-            <Profile showName={!isMoble}/>
+            <Profile showName={!isMoble}/> 
+            
         </Flex>
     );
 }

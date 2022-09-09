@@ -61,20 +61,57 @@ const series = [
 
 export function Dashboard() {
   return (
-    <Flex direction="column" h="100vh">
+    <Flex 
+        direction="column" 
+        h="100vh">
         <Header />
         
-        <Flex w="100%" my="6" maxW={1480} mx="auto" px="6">
+        <Flex 
+            w="100%" 
+            my="6" 
+            maxW={1480} 
+            mx="auto" 
+            px="6">
           <Sidebar />
 
-          <SimpleGrid flex="1" gap="4" minChildWidth="320px" alignSelf="flex-start" >
-            <Box p="8" bg="gray.700" borderRadius="8" minH="60" pb="4">
-              <Text fontSize="lg" mb="4"> Inscritos da semana</Text>
-              <Chart type="area" height={160} options={options} series={series}/>
+          <SimpleGrid 
+              flex="1" 
+              gap="4" 
+              minChildWidth="320px" 
+              alignSelf="flex-start" >
+            <Box 
+                p="8" 
+                bg="gray.700" 
+                borderRadius="8" 
+                pb="4"
+                maxW="550">
+              <Text 
+                  fontSize="lg" 
+                  mb="4"> 
+                      Inscritos da semana
+                </Text>
+              <Chart 
+                  type="area" 
+                  height={160} 
+                  options={options} 
+                  series={series}/>
             </Box>
-            <Box p="8" bg="gray.700" borderRadius="8" minH="60" pb="4">
-              <Text fontSize="lg" mb="4"> Taxa de abertura</Text>
-              <Chart type="area" height={160} options={options} series={series}/>
+            <Box 
+                p="8" 
+                bg="gray.700" 
+                borderRadius="8" 
+                pb="4"
+                maxW="550">
+                <Text 
+                    fontSize="lg" 
+                    mb="4"> 
+                        Taxa de abertura
+                </Text>
+              <Chart 
+                  type="area" 
+                  height={160} 
+                  options={options} 
+                  series={series}/>
             </Box>
           </SimpleGrid>
 
