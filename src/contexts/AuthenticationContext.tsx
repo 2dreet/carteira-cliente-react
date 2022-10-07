@@ -2,7 +2,7 @@ import { AxiosError } from "axios";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ErrorDTO } from "../domain/dto/ErrorDTO";
-import { User } from "../domain/model/User";
+import { User } from "../domain/models/User";
 import { Api } from "../services/Api";
 import { AuthenticationService } from "../services/AuthenticationService";
 import { UserService } from "../services/UserService";

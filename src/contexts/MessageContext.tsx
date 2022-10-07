@@ -23,6 +23,7 @@ export function MessageContextProvider({children}:MessageContextProviderProps) {
             status: 'success',
             duration: 9000,
             isClosable: true,
+            position: "top"
           })
     }
 
@@ -33,6 +34,7 @@ export function MessageContextProvider({children}:MessageContextProviderProps) {
             status: 'error',
             duration: 9000,
             isClosable: true,
+            position: "top"
           })
     }
 

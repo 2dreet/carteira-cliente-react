@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 
 export const Api = axios.create({
     baseURL: "http://localhost:8080"
-})
+});
 
 Api.interceptors.response.use(response => {
     return response;

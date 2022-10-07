@@ -1,13 +1,13 @@
 import { Box, HStack, Stack} from "@chakra-ui/react";
 import PaginationItem from "../PaginationItem";
 
-const pages: number[] =[
-    1, 2, 3, 4, 5
-];
+interface PaginationProps {
+    setPage(page:number): void,
+    pages: number,
+    currentPage: number
+}
 
-const currentPage: number = 2;
-
-export function Pagination() {
+export function Pagination({currentPage, pages, setPage}: PaginationProps) {
     return(
         <Stack 
             direction={["column", "row"]}
@@ -16,10 +16,16 @@ export function Pagination() {
             align="center" 
             spacing="6" >
             <Box>
-                <strong>0</strong> - <strong>10</strong> de <strong> 100 </strong>
+                <strong> </strong>
             </Box>
             <HStack spacing="2">
-                {!!pages && pages.map(page => <PaginationItem key={page} label={page} isCurrent={currentPage === page} />)}
+                {!!pages && pages > 1 && Array.from({length: pages}, (_, i) => i + 1).map(page => 
+                    <PaginationItem 
+                            key={page} 
+                            label={page} 
+                            isCurrent={currentPage === page}
+                            onClick={() => { setPage(page) }} />
+                )}
             </HStack>
         </Stack>
     );

@@ -19,7 +19,7 @@ import { UserService } from "../../services/UserService";
 
 const service = new UserService();
 
-export function Users(){
+export function Reports(){
 
     const navigate = useNavigate();
 
@@ -109,7 +109,7 @@ export function Users(){
                 <Box flex="1" borderRadius={8} bg="gray.700" p="8" >
                     <Flex mb="8" justify="space-between" align="center" >
                         <Heading size="lg" fontWeight="normal" >
-                            Usuários
+                            Relatórios
                         </Heading>
                         
                         <CreateButton label="Criar novo" onClick={handleCreateUser}/>
@@ -156,4 +156,4 @@ export function Users(){
     );
 }
 
-export default Users;
+export default Reports;

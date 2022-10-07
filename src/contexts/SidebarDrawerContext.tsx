@@ -1,7 +1,5 @@
 import { UseDisclosureReturn, useDisclosure } from "@chakra-ui/react";
 import { createContext, ReactNode, useContext } from "react";
-import { useLocation } from "react-router-dom";
-import { useAuthenticationContext } from "./AuthenticationContext";
 
 interface SidebarDrawerProviderProps {
     children: ReactNode,
