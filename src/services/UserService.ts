@@ -1,5 +1,6 @@
 import { SearchUser } from "../domain/dto/SearchUser";
 import { User } from "../domain/models/User"
+import { UserBind } from "../domain/models/UserBind";
 import { Api } from "./Api";
 
 export class UserService {
@@ -25,6 +26,15 @@ export class UserService {
     async getUserById(id: number): Promise<User> {
         try {
             const response = await Api.get("/user/" + id);
+            return response.data;
+        } catch(_e) {
+            throw _e;
+        }
+    }
+
+    async getUserBindById(id: number): Promise<UserBind> {
+        try {
+            const response = await Api.get("/user/bind/" + id);
             return response.data;
         } catch(_e) {
             throw _e;

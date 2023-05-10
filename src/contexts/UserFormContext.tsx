@@ -1,9 +1,12 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { User } from "../domain/models/User";
+import { UserBind } from "../domain/models/UserBind";
 
 type UserFormContextType = {
     getUser(): User | undefined,
     setUser(user: User | undefined): void,
+    setUserBind(user: UserBind | undefined): void,
+    getUserBind(): UserBind,
     showForm(): void,
     hideForm(): void,
     open: boolean,
@@ -19,10 +22,16 @@ export function UserFormContextProvider({ children }: UserFormContextProps) {
 
     const [user, setUser] = useState<User>();
 
+    const [userBind, setUserBind] = useState<UserBind>();
+
     const [open, setOpen] = useState<boolean>(false);
     
     function getUser(): User | undefined {
         return user;
+    }
+
+    function getUserBind(): UserBind {
+        return userBind ? userBind : {} as UserBind;
     }
 
     function showForm() {
@@ -34,7 +43,7 @@ export function UserFormContextProvider({ children }: UserFormContextProps) {
     }
 
     return (
-        <UserFormContext.Provider value={{ getUser, setUser, hideForm, open, showForm }}>
+        <UserFormContext.Provider value={{ getUser, setUser, hideForm, open, showForm, setUserBind, getUserBind }}>
             { children }
         </UserFormContext.Provider>
     );

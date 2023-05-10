@@ -8,6 +8,20 @@ interface PaginationProps {
 }
 
 export function Pagination({currentPage, pages, setPage}: PaginationProps) {
+
+    function showPage(page: number) {
+        if(page === currentPage 
+            || (page + 1 == currentPage) 
+            || (page -1 == currentPage)
+            || (page === 1 )
+            || (page === pages )) {
+
+            return true;
+        } 
+
+        return false;
+    }
+
     return(
         <Stack 
             direction={["column", "row"]}
@@ -20,11 +34,21 @@ export function Pagination({currentPage, pages, setPage}: PaginationProps) {
             </Box>
             <HStack spacing="2">
                 {!!pages && pages > 1 && Array.from({length: pages}, (_, i) => i + 1).map(page => 
-                    <PaginationItem 
-                            key={page} 
-                            label={page} 
-                            isCurrent={currentPage === page}
-                            onClick={() => { setPage(page) }} />
+                    {
+                        if(showPage(page)) {
+                            return ( 
+                                    <PaginationItem 
+                                        key={page} 
+                                        label={page} 
+                                        isCurrent={currentPage === page}
+                                        onClick={() => { setPage(page) }} /> 
+                                );
+                        } else if(page + 2 == currentPage || page - 2 == currentPage) {
+                            return (<strong key={page}>...</strong>);
+                        } else {
+                            return (<strong key={page}></strong>);
+                        }
+                    }
                 )}
             </HStack>
         </Stack>

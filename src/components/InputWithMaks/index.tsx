@@ -20,6 +20,7 @@ const InputWithMaksBase: ForwardRefRenderFunction<HTMLInputElement, InputMaksPro
                 <ChakraInput 
                 as={ InputMask } 
                 mask={mask}
+                maskChar={null}
                 name={name} 
                 focusBorderColor="blue.400" 
                 bgColor={"gray.200"} 

@@ -76,10 +76,10 @@ export function AddressForm({formProps, location}:AddressFormData ) {
     const { setErrorMessage } = useMessageContext();
 
     async function getCep () {
-        showLoading();
         try {
             const cep = formProps.getValues(location + ".zipCode");
-            if(cep && cep != null && cep.length > 0) {
+            if(cep && cep != null && cep.length == 9) {
+                showLoading();
                 const addressCep:Cep = await ibgeService.getCep(cep);
                 if(addressCep && addressCep != null && addressCep.erro === false) {
                     formProps.setValue(location + ".state", addressCep.uf);
@@ -146,7 +146,6 @@ export function AddressForm({formProps, location}:AddressFormData ) {
                             name= {location + ".zipCode"} 
                             label="CEP"
                             mask="99999-999"
-                            onBlur={getCep}
                             onKeyDown={ (event) => {
                                 if(event.key === "Enter") {
                                     getCep();

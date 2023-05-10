@@ -1,17 +1,17 @@
-import { Box, Checkbox, Flex, Heading, Table, Tbody, Td, Th, Thead, Tr, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, Heading, Table, Tbody, Td, Th, Thead, Tr, Text, useBreakpointValue } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CreateButton from "../../components/Buttons/CreateButton";
+import BindUserForm from "../../components/BindUserForm";
 import EditButton from "../../components/Buttons/EditButton";
 import Header from "../../components/Header";
 import Pagination from "../../components/Pagination";
 import Search from "../../components/Search";
 import Sidebar from "../../components/Sidebar";
-import UserForm from "../../components/UserForm";
 import { useAuthenticationContext } from "../../contexts/AuthenticationContext";
 import { useLoading } from "../../contexts/LoadingContext";
 import { useMessageContext } from "../../contexts/MessageContext";
 import { useUserForm } from "../../contexts/UserFormContext";
+import { UserSearchContextProvider } from "../../contexts/UserSearchContext";
 import { SearchUser } from "../../domain/dto/SearchUser";
 
 import { User } from "../../domain/models/User";
@@ -25,7 +25,7 @@ export function BindUsers(){
 
     const { user } = useAuthenticationContext();
 
-    const { setUser, showForm, open } = useUserForm();
+    const { setUserBind, showForm, open } = useUserForm();
 
     const { showLoading, hideLoading} = useLoading();
 
@@ -73,14 +73,9 @@ export function BindUsers(){
         handleSearchUser();
     }, []);
 
-    function handleCreateUser() {
-        setUser(undefined);
-        showForm();
-    }
-
     async function handleUpdateUser(userSelected: User) {
-        const user = await service.getUserById(userSelected.id);
-        setUser(user);
+        const user = await service.getUserBindById(userSelected.id);
+        setUserBind(user);
         showForm();
     }
 
@@ -101,58 +96,57 @@ export function BindUsers(){
     }
 
     return (
-        <Box>
-            <Header />
-            <Flex w="100%" my="6" maxW={1480} mx="auto" px="6">
-                <Sidebar />
-                
-                <Box flex="1" borderRadius={8} bg="gray.700" p="8" >
-                    <Flex mb="8" justify="space-between" align="center" >
-                        <Heading size="lg" fontWeight="normal" >
-                            Vínculos de Usuários
-                        </Heading>
-                        
-                        <CreateButton label="Criar novo" onClick={handleCreateUser}/>
-                        
-                    </Flex>
+        <UserSearchContextProvider>
+            <Box>
+                <Header />
+                <Flex w="100%" my="6" maxW={1480} mx="auto" px="6">
+                    <Sidebar />
+                    
+                    <Box flex="1" borderRadius={8} bg="gray.700" p="8" >
+                        <Flex mb="8" justify="space-between" align="center" >
+                            <Heading size="lg" fontWeight="normal" >
+                                Vínculos de Usuários
+                            </Heading>
+                        </Flex>
 
-                    <Search setValue={setSearchValue} handlerSearch={handleSearchUser}/>
+                        <Search setValue={setSearchValue} handlerSearch={handleSearchUser}/>
 
-                    <Table colorScheme="gray" mt="4">
-                        <Thead>
-                            <Tr>
-                                <Th color="gray.300" fontSize="16">
-                                    Usuário
-                                </Th>
-                                {!isMobile && <Th color="gray.300" fontSize="16"> Perfil </Th>}
-                                <Th w="8"></Th>
-                            </Tr>
-                        </Thead>
-                        <Tbody>
-                            {!!searchUser && !!searchUser.users && searchUser.users.map(user => 
-                                <Tr key={user.login}>
-                                    <Td>
-                                        <Box>
-                                            <Text fontWeight="bold">
-                                                {user.person.name}
-                                            </Text>
-                                            <Text fontSize="md" color="gray.300">
-                                                {user.login}
-                                            </Text>
-                                        </Box>
-                                    </Td>
-                                    {!isMobile && <Td> { getRule(user.rule)} </Td>}
-                                    <Td> <EditButton label="Editar" onClick={() => handleUpdateUser(user)}/> </Td>
+                        <Table colorScheme="gray" mt="4">
+                            <Thead>
+                                <Tr>
+                                    <Th color="gray.300" fontSize="16">
+                                        Usuário
+                                    </Th>
+                                    {!isMobile && <Th color="gray.300" fontSize="16"> Perfil </Th>}
+                                    <Th w="8"></Th>
                                 </Tr>
-                            )}
-                        </Tbody>
-                    </Table>
-                    <Pagination currentPage={page} pages={searchUser.totalPage } setPage={setPageUserTable}/>
-                </Box>
-            </Flex>
-            
-            <UserForm />
-        </Box>
+                            </Thead>
+                            <Tbody>
+                                {!!searchUser && !!searchUser.users && searchUser.users.map(user => 
+                                    <Tr key={user.login}>
+                                        <Td>
+                                            <Box>
+                                                <Text fontWeight="bold">
+                                                    {user.person.name}
+                                                </Text>
+                                                <Text fontSize="md" color="gray.300">
+                                                    {user.login}
+                                                </Text>
+                                            </Box>
+                                        </Td>
+                                        {!isMobile && <Td> { getRule(user.rule)} </Td>}
+                                        <Td> <EditButton label="Editar" onClick={() => handleUpdateUser(user)}/> </Td>
+                                    </Tr>
+                                )}
+                            </Tbody>
+                        </Table>
+                        <Pagination currentPage={page} pages={searchUser.totalPage } setPage={setPageUserTable}/>
+                    </Box>
+                </Flex>
+                
+                <BindUserForm />
+            </Box>
+        </UserSearchContextProvider>
     );
 }
 

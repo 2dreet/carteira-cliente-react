@@ -8,11 +8,13 @@ export class YupUtils {
                if(val.length > 0) { 
                  return yup.string().transform(
                         (value: string) => {
-                        const valueFormated = value.split("")
-                                            .map((val: string) => 
-                                                val.replace("_", "").replace("-", "").replace("(", "").replace(")", "").replace("/", "")
-                                            ).join("").toString();
-                        return valueFormated;
+                            const valueFormated = value.split("")
+                                                .map((val: string) => 
+                                                    val.replace("_", "").replace("-", "").replace("(", "").replace(")", "").replace("/", "")
+                                                ).join("").toString();
+
+                            console.log(valueFormated);
+                            return valueFormated;
                         }
                     ).min(minValue, message);
               } else { 

@@ -39,8 +39,7 @@ export function Search({setValue, handlerSearch}: SearchProps) {
                 _focus={{bgColor : "gray.50"}}
                 _placeholder={{ color: "gray.500" }}
                 onChange={(e) => setValue(e.target.value)}
-                onKeyUp={searchOnEnter}
-                onBlur={handlerSearch}/>
+                onKeyUp={searchOnEnter}/>
             
             <Button 
                 p="0"

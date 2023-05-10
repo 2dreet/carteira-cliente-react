@@ -96,14 +96,33 @@ export function UserForm(){
         }
     };
 
+    function isNewUser() {
+        const user = getUser();
+        if(user && user.id && user.id > 0) {
+            return false;
+        }
+
+        return true;
+    }
+
     return (
         <Modal 
             size="6xl"
+            closeOnEsc={false}
+            closeOnOverlayClick={false}
             isOpen={open} 
-            onClose={hideForm}>
+            onClose={hideForm}
+            blockScrollOnMount={false}>
             <ModalOverlay />
-            <ModalContent m="3" p="0" bg="none">
-                <ModalBody m="3" p="0">
+            <ModalContent 
+                m="3" 
+                p="0" 
+                bg="none">
+
+                <ModalBody 
+                    m="3" 
+                    p="0">
+
                     <Flex 
                         w="100%" 
                         maxW={1480}
@@ -158,8 +177,15 @@ export function UserForm(){
                             <Flex 
                                 mt="8" 
                                 justify="space-between" >
-                                    
-                                <ResetPassWordButton />
+
+                                {!isNewUser() &&     
+                                    <ResetPassWordButton />
+                                }
+                                {isNewUser() &&     
+                                    <Box>
+                                        <strong> </strong>
+                                    </Box>
+                                }
 
                                 <HStack
                                     spacing="4">
